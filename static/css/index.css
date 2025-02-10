@@ -1,0 +1,12 @@
+/* index.css */
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.top-left, .top-right, .bottom-left, .bottom-right {
+    border: 1px solid #ccc;
+    padding: 20px;
+}
