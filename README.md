@@ -276,10 +276,10 @@ Use the explain() method to verify that queries use the indexes:
 result = await db["workouts"].find({"user_id": "user123"}).sort("date", -1).explain()
 print(result)
 ```
-**Key Metrics to Look For:**
-a. `stage`: `IXSCAN`: Indicates that the query used an index.
-b. `totalDocsExamined`: The number of documents scanned ( much smaller than the total number of documents in the collection if an index is used).
-c. `executionTimeMillis`: The time taken to execute the query.
+**Key Metrics to Look For:** <br/>
+a. `stage`: `IXSCAN`: Indicates that the query used an index.<br/>
+b. `totalDocsExamined`: The number of documents scanned ( much smaller than the total number of documents in the collection if an index is used).<br/>
+c. `executionTimeMillis`: The time taken to execute the query.<br/>
 
 
 ### 3. Scaling MongoDB
