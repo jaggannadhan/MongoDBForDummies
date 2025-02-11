@@ -285,6 +285,25 @@ print(stats)
 ```
 await db["workouts"].drop_index("user_id_1")
 ```
+8. TTL Index:
+TTL (Time-To-Live) indexes automatically remove documents after a specified period. This is useful for managing temporary data like logs or sessions.
+```
+await db["logs"].create_index("createdAt", expireAfterSeconds=30 * 24 * 60 * 60)
+```
+9. Partial Indexes:
+Partial indexes only index documents that match a filter. This reduces index size and improves performance for specific queries.
+```
+# Index only workouts with calories_burned > 500:
+await db["workouts"].create_index(
+    [("calories_burned", 1)],
+    partialFilterExpression={"calories_burned": {"$gt": 500}}
+)
+```
+10. Wildcard Indexes:
+Wildcard indexes allow you to index all fields in a document or a subset of fields. This is useful for dynamic schemas.
+```
+await db["workouts"].create_index({"$**": 1})
+```
 **Key Metrics to Look For:** <br/>
 a. `stage`: `IXSCAN`: Indicates that the query used an index.<br/>
 b. `totalDocsExamined`: The number of documents scanned ( much smaller than the total number of documents in the collection if an index is used).<br/>
