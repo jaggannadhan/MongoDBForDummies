@@ -219,6 +219,24 @@ b. **Referenced Data**: Store related data in separate collections and reference
 c. **Denormalization**: Duplicate data to reduce the need for joins (useful for read-heavy workloads).<br/>
 d. **Normalization**: Avoid duplication by splitting data into multiple collections (useful for write-heavy workloads).<br/>
 
+#### Best Practices for Data Modeling
+a. **Understand Your Queries**:
+Design your schema based on the queries your application will perform most frequently.
+Optimize for reads if your application is read-heavy, and for writes if it’s write-heavy.
+b. **Limit Document Size**:
+Keep documents under 16 MB to avoid hitting MongoDB’s size limit.
+Use references for large or frequently updated data.
+c. **Avoid Deep Nesting**:
+While MongoDB supports nested objects and arrays, deeply nested structures can make queries more complex.
+Flatten your data where possible.
+d. **Use Arrays for One-to-Many Relationships**:
+For relationships where one entity has multiple related items (e.g., a workout with multiple nutrition entries), use arrays.
+Be cautious about array size to avoid exceeding document limits.
+e. **Index Strategically**:
+Create indexes on fields used in filters, sorts, and groupings.
+Avoid over-indexing, as it increases storage costs and slows down writes.
+
+
 ### 2. Indexing Optimization
 Indexes are crucial for improving query performance, but they come with trade-offs. Let’s explore how to optimize indexes for large datasets and complex queries.
 
@@ -244,10 +262,29 @@ await db["workouts"].create_index("user_id")
 # Filter by user_id and Sort by date 
 await db["workouts"].create_index([("user_id", 1), ("date", -1)])
 ```
-3. Testing Index Performance
+3. Text Index 
+```
+await db["workouts"].create_index([("notes", "text")])
+```
+4. Geospatial Index 
+```
+await db["locations"].create_index([("location", "2dsphere")])
+```
+5. Testing Index Performance
 Use the explain() method to verify that queries use the indexes:
 ```
 result = await db["workouts"].find({"user_id": "user123"}).sort("date", -1).explain()
 print(result)
-# Look for "stage": "IXSCAN" in the output to confirm index usage.
+
+# Key Metrics to Look For:
+# "stage": "IXSCAN": Indicates that the query used an index.
+# "totalDocsExamined": The number of documents scanned. This should be much smaller than the total number of documents in the collection if an index is used.
+# "executionTimeMillis": The time taken to execute the query.
 ```
+
+### 3. Scaling MongoDB
+As your application grows, you may need to scale MongoDB to handle increased traffic and data volume. Let’s explore scaling strategies:
+a. **Sharding**: Distribute data across multiple servers to improve performance and storage capacity.
+b. **Replication**: Maintain multiple copies of your data for high availability and fault tolerance.
+c. **Capped Collections**: Use fixed-size collections for high-throughput logging or analytics.
+
