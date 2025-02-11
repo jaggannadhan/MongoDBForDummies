@@ -223,7 +223,7 @@ d. **Normalization**: Avoid duplication by splitting data into multiple collecti
 Indexes are crucial for improving query performance, but they come with trade-offs. Let’s explore how to optimize indexes for large datasets and complex queries.
 
 #### Key Topics
-**Index Types:**
+**Index Types:**<br/>
 a. Single-field indexes (e.g., user_id).<br/>
 b. Compound indexes (e.g., user_id + date).<br/>
 c. Text indexes for full-text search.<br/>
