@@ -328,7 +328,7 @@ Example: Use `user_id` as the shard key to distribute data by user.<br/>
 Data is divided into chunks based on the shard key.<br/>
 Each chunk contains a range of shard key values.<br/>
 **Mongos Router**:<br/>
-The mongos process routes queries to the appropriate shard(s).<br/>
+The `mongos` process routes queries to the appropriate shard(s).<br/>
 **Config Servers**:<br/>
 Store metadata about the cluster (e.g., which shard contains which chunks).<br/>
 
@@ -336,3 +336,26 @@ Store metadata about the cluster (e.g., which shard contains which chunks).<br/>
 a. Choose a high-cardinality shard key (e.g., `user_id`) to ensure even data distribution.<br/>
 b. Avoid using monotonically increasing keys (e.g., timestamps) as the shard key, as they can lead to hotspots.<br/>
 c. Monitor shard distribution using the `sh.status()` command.<br/>
+
+###  Replication
+Replication ensures high availability by maintaining multiple copies of your data. MongoDB uses a replica set, which consists of:<br/>
+**Primary Node**: Handles all write operations.<br/>
+**Secondary Nodes**: Replicate data from the primary and can serve read operations.<br/>
+**Arbiter (Optional)**: Helps elect a new primary if the current primary fails.<br/>
+
+#### How Replication Works?
+a. Write operations are applied to the primary node.<br/>
+b. The primary logs changes in the `oplog` (operations log).<br/>
+c. Secondary nodes replicate changes from the oplog.<br/>
+
+### Capped Collections
+Capped collections are fixed-size collections that automatically overwrite old data when the size limit is reached. They’re useful for high-throughput logging or analytics.
+```
+await db.create_collection(
+    "logs",
+    capped=True,
+    size=100000,  # Maximum size in bytes
+    max=1000      # Maximum number of documents
+)
+```
+
