@@ -28,7 +28,6 @@ class WorkoutModel(BaseModel):
     notes: str
 
 
-
 # Get all workouts
 @workout_router.get("/", response_description="List all workouts")
 async def list_workouts(workout_collection=Depends(get_workouts_db)) -> List[dict]:
