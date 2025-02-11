@@ -276,6 +276,15 @@ Use the explain() method to verify that queries use the indexes:
 result = await db["workouts"].find({"user_id": "user123"}).sort("date", -1).explain()
 print(result)
 ```
+6. Monitor Index Usage and identify unused indexes:
+```
+stats = await db["workouts"].aggregate([{"$indexStats": {}}]).to_list(None)
+print(stats)
+```
+7. Drop Unused Indexes:
+```
+await db["workouts"].drop_index("user_id_1")
+```
 **Key Metrics to Look For:** <br/>
 a. `stage`: `IXSCAN`: Indicates that the query used an index.<br/>
 b. `totalDocsExamined`: The number of documents scanned ( much smaller than the total number of documents in the collection if an index is used).<br/>
