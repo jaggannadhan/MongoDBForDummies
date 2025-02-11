@@ -209,8 +209,8 @@ Handles Empty Arrays: If the array field is empty, `$unwind` will exclude the do
 }
 ```
 
-## MongoDB Concepts
-### 1. Data Modeling in MongoDB
+# MongoDB Concepts
+## 1. Data Modeling in MongoDB
 Data modeling is a critical aspect of designing efficient and scalable MongoDB schemas. Unlike relational databases, MongoDB uses a flexible schema , which means you have more freedom in how you structure your data. However, this flexibility also requires careful planning to ensure optimal performance.
 
 #### Key Concepts
@@ -237,7 +237,7 @@ Create indexes on fields used in filters, sorts, and groupings.
 Avoid over-indexing, as it increases storage costs and slows down writes.
 
 
-### 2. Indexing Optimization
+## 2. Indexing Optimization
 Indexes are crucial for improving query performance, but they come with trade-offs. Let’s explore how to optimize indexes for large datasets and complex queries.
 
 #### Key Topics
@@ -282,7 +282,7 @@ b. `totalDocsExamined`: The number of documents scanned ( much smaller than the 
 c. `executionTimeMillis`: The time taken to execute the query.<br/>
 
 
-### 3. Scaling MongoDB
+## 3. Scaling MongoDB
 As your application grows, you may need to scale MongoDB to handle increased traffic and data volume. <br/>
 a. **Sharding**: Distribute data across multiple servers to improve performance and storage capacity.<br/>
 b. **Replication**: Maintain multiple copies of your data for high availability and fault tolerance.<br/>
