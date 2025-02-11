@@ -200,3 +200,11 @@ After applying `$unwind` to the nutrition_data field, the result will look like 
 #### Key Points About `$unwind`
 Handles Empty Arrays: If the array field is empty, `$unwind` will exclude the document from the output unless you use the preserveNullAndEmptyArrays option.
 
+```
+{
+    "$unwind": {
+        "path": "$nutrition_data",
+        "preserveNullAndEmptyArrays": true
+    }
+}
+```
