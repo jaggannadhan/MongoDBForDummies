@@ -283,8 +283,8 @@ c. `executionTimeMillis`: The time taken to execute the query.<br/>
 
 
 ### 3. Scaling MongoDB
-As your application grows, you may need to scale MongoDB to handle increased traffic and data volume. Let’s explore scaling strategies:
-a. **Sharding**: Distribute data across multiple servers to improve performance and storage capacity.
-b. **Replication**: Maintain multiple copies of your data for high availability and fault tolerance.
-c. **Capped Collections**: Use fixed-size collections for high-throughput logging or analytics.
+As your application grows, you may need to scale MongoDB to handle increased traffic and data volume. <br/>
+a. **Sharding**: Distribute data across multiple servers to improve performance and storage capacity.<br/>
+b. **Replication**: Maintain multiple copies of your data for high availability and fault tolerance.<br/>
+c. **Capped Collections**: Use fixed-size collections for high-throughput logging or analytics.<br/>
 
