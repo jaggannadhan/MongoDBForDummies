@@ -48,7 +48,7 @@ pip install pymongo
 PyMongo is the official MongoDB driver for Python and is **synchronous**.
 This means that each database operation blocks the execution of your program until it completes.
 
-*Motor* is an *asynchronous* driver for MongoDB, built on top of PyMongo and designed to leverage Python's asyncio library.
+**Motor** is an *asynchronous* driver for MongoDB, built on top of PyMongo and designed to leverage Python's asyncio library.
 ```
 pip install motor
 ```
@@ -120,7 +120,7 @@ and `Nutrition`
     }
 ]
 ```
-Let's performing a `$lookup` between the `Workouts` and `Nutrition` collections, 
+Let's performing a `$lookup` between the **Workouts** and **Nutrition** collections, 
 
 ```
 pipeline = [{
