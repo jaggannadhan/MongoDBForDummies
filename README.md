@@ -209,6 +209,7 @@ Handles Empty Arrays: If the array field is empty, `$unwind` will exclude the do
 }
 ```
 
+
 # MongoDB Concepts
 ## 1. Data Modeling in MongoDB
 Data modeling is a critical aspect of designing efficient and scalable MongoDB schemas. Unlike relational databases, MongoDB uses a flexible schema , which means you have more freedom in how you structure your data. However, this flexibility also requires careful planning to ensure optimal performance.
@@ -316,3 +317,22 @@ a. **Sharding**: Distribute data across multiple servers to improve performance 
 b. **Replication**: Maintain multiple copies of your data for high availability and fault tolerance.<br/>
 c. **Capped Collections**: Use fixed-size collections for high-throughput logging or analytics.<br/>
 
+### Sharding
+Sharding is MongoDB’s solution for horizontal scaling. It involves distributing data across multiple servers (shards) to improve performance and storage capacity.
+
+#### How Sharding Works?
+**Shard Key**:<br/>
+A shard key determines how data is distributed across shards.<br/>
+Example: Use `user_id` as the shard key to distribute data by user.<br/>
+**Chunks**:<br/>
+Data is divided into chunks based on the shard key.<br/>
+Each chunk contains a range of shard key values.<br/>
+**Mongos Router**:<br/>
+The mongos process routes queries to the appropriate shard(s).<br/>
+**Config Servers**:<br/>
+Store metadata about the cluster (e.g., which shard contains which chunks).<br/>
+
+#### Best Practices for Sharding
+a. Choose a high-cardinality shard key (e.g., `user_id`) to ensure even data distribution.
+b. Avoid using monotonically increasing keys (e.g., timestamps) as the shard key, as they can lead to hotspots.
+c. Monitor shard distribution using the `sh.status()` command.
