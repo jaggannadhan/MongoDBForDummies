@@ -74,10 +74,129 @@ pip install motor
 ### What Is the Aggregation Framework?
 The aggregation framework processes data in stages, where each stage performs a specific operation (e.g., filtering, grouping, sorting). The output of one stage becomes the input for the next stage, forming a pipeline.
 
-#### Key Stages in the Aggregation Pipeline
+#### Key Stages in the Aggregation Pipeline (Most commonly used)
 1. `$match`   : Filters documents to pass only those that match the specified condition(s). <br/>
 2. `$group`   : Groups documents by a specified key and applies aggregations (e.g., sum, average). <br/>
 3. `$sort`    : Sorts documents based on a field. <br/>
 4. `$project` : Reshapes documents (e.g., include/exclude fields, rename fields). <br/>
 5. `$limit`   : Limits the number of documents passed to the next stage. <br/>
 6. `$lookup`  : Performs a left outer join to another collection. <br/>
+7. `$unwind`  : Flatten the joined array of nutrition entries. <br/>
+
+#### Example
+Let's say we have two collections, `Workouts` and `Nutrition`
+
+```
+[
+    {
+        "_id": "1",
+        "user_id": "user123",
+        "calories_burned": 300
+    },
+    {
+        "_id": "2",
+        "user_id": "user456",
+        "calories_burned": 400
+    }
+]
+```
+
+```
+[
+    {
+        "_id": "a",
+        "user_id": "user123",
+        "calories": 500
+    },
+    {
+        "_id": "b",
+        "user_id": "user123",
+        "calories": 600
+    },
+    {
+        "_id": "c",
+        "user_id": "user456",
+        "calories": 700
+    }
+]
+```
+Let's performing a `$lookup` between the `Workouts` and Nutrition `collections`, 
+
+```
+pipeline = [{
+    "$lookup": {
+        "from": "nutrition",  # Join with the Nutrition collection
+        "localField": "user_id",
+        "foreignField": "user_id",
+        "as": "nutrition_data"  # Store joined data in this field
+    }
+}]
+results = await workout_collection.aggregate(pipeline).to_list(None)
+return results
+```
+
+After the `$lookup` result might look like this:
+```
+[
+    {
+        "_id": "1",
+        "user_id": "user123",
+        "calories_burned": 300,
+        "nutrition_data": [
+            {"_id": "a", "user_id": "user123", "calories": 500},
+            {"_id": "b", "user_id": "user123", "calories": 600}
+        ]
+    },
+    {
+        "_id": "2",
+        "user_id": "user456",
+        "calories_burned": 400,
+        "nutrition_data": [
+            {"_id": "c", "user_id": "user456", "calories": 700}
+        ]
+    }
+]
+```
+
+Let's apply `$unwind`
+```
+pipeline = [
+  {
+      "$lookup": {
+          "from": "nutrition",  # Join with the Nutrition collection
+          "localField": "user_id",
+          "foreignField": "user_id",
+          "as": "nutrition_data"  # Store joined data in this field
+      }
+  },
+  {
+  "$unwind": "$nutrition_data"  # Flatten the nutrition_data array
+  }
+]
+```
+After applying `$unwind` to the nutrition_data field, the result will look like this:
+```
+[
+    {
+        "_id": "1",
+        "user_id": "user123",
+        "calories_burned": 300,
+        "nutrition_data": {"_id": "a", "user_id": "user123", "calories": 500}
+    },
+    {
+        "_id": "1",
+        "user_id": "user123",
+        "calories_burned": 300,
+        "nutrition_data": {"_id": "b", "user_id": "user123", "calories": 600}
+    },
+    {
+        "_id": "2",
+        "user_id": "user456",
+        "calories_burned": 400,
+        "nutrition_data": {"_id": "c", "user_id": "user456", "calories": 700}
+    }
+]
+```
+#### Key Points About `$unwind`
+Handles Empty Arrays: If the array field is empty, `$unwind` will exclude the document from the output unless you use the preserveNullAndEmptyArrays option.
+
