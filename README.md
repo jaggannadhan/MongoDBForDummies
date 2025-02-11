@@ -75,9 +75,9 @@ pip install motor
 The aggregation framework processes data in stages, where each stage performs a specific operation (e.g., filtering, grouping, sorting). The output of one stage becomes the input for the next stage, forming a pipeline.
 
 #### Key Stages in the Aggregation Pipeline
-*$match*   : Filters documents to pass only those that match the specified condition(s).
-*$group*   : Groups documents by a specified key and applies aggregations (e.g., sum, average).
-*$sort*    : Sorts documents based on a field.
-*$project* : Reshapes documents (e.g., include/exclude fields, rename fields).
-*$limit*   : Limits the number of documents passed to the next stage.
-*$lookup*  : Performs a left outer join to another collection.
+*$match*   : Filters documents to pass only those that match the specified condition(s). <br/>
+*$group*   : Groups documents by a specified key and applies aggregations (e.g., sum, average). <br/>
+*$sort*    : Sorts documents based on a field. <br/>
+*$project* : Reshapes documents (e.g., include/exclude fields, rename fields). <br/>
+*$limit*   : Limits the number of documents passed to the next stage. <br/>
+*$lookup*  : Performs a left outer join to another collection. <br/>
