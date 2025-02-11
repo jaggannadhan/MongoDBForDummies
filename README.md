@@ -333,6 +333,6 @@ The mongos process routes queries to the appropriate shard(s).<br/>
 Store metadata about the cluster (e.g., which shard contains which chunks).<br/>
 
 #### Best Practices for Sharding
-a. Choose a high-cardinality shard key (e.g., `user_id`) to ensure even data distribution.
-b. Avoid using monotonically increasing keys (e.g., timestamps) as the shard key, as they can lead to hotspots.
-c. Monitor shard distribution using the `sh.status()` command.
+a. Choose a high-cardinality shard key (e.g., `user_id`) to ensure even data distribution.<br/>
+b. Avoid using monotonically increasing keys (e.g., timestamps) as the shard key, as they can lead to hotspots.<br/>
+c. Monitor shard distribution using the `sh.status()` command.<br/>
