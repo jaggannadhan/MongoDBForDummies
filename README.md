@@ -84,7 +84,7 @@ The aggregation framework processes data in stages, where each stage performs a 
 7. `$unwind`  : Flatten the joined array of nutrition entries. <br/>
 
 #### Example
-Let's say we have two collections, `Workouts` and `Nutrition`
+Let's say we have two collections, `Workouts`, 
 
 ```
 [
@@ -100,7 +100,7 @@ Let's say we have two collections, `Workouts` and `Nutrition`
     }
 ]
 ```
-
+and `Nutrition`
 ```
 [
     {
@@ -120,7 +120,7 @@ Let's say we have two collections, `Workouts` and `Nutrition`
     }
 ]
 ```
-Let's performing a `$lookup` between the `Workouts` and Nutrition `collections`, 
+Let's performing a `$lookup` between the `Workouts` and `Nutrition` collections, 
 
 ```
 pipeline = [{
