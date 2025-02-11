@@ -224,12 +224,12 @@ Indexes are crucial for improving query performance, but they come with trade-of
 
 #### Key Topics
 **Index Types:**
-a. Single-field indexes (e.g., user_id).
-b. Compound indexes (e.g., user_id + date).
-c. Text indexes for full-text search.
-d. Geospatial indexes for location-based queries.
-**Index Creation Strategies:**
-a. Create indexes on fields used in filters ($match), sorts ($sort), and groupings ($group).
-b. Avoid over-indexing, as it increases storage costs and slows down writes.
-**Explain Plans:**
-Use MongoDB’s explain() method to analyze query performance and verify index usage.
+a. Single-field indexes (e.g., user_id).<br/>
+b. Compound indexes (e.g., user_id + date).<br/>
+c. Text indexes for full-text search.<br/>
+d. Geospatial indexes for location-based queries.<br/>
+**Index Creation Strategies:**<br/>
+a. Create indexes on fields used in filters ($match), sorts ($sort), and groupings ($group).<br/>
+b. Avoid over-indexing, as it increases storage costs and slows down writes.<br/>
+**Explain Plans:**<br/>
+Use MongoDB’s explain() method to analyze query performance and verify index usage.<br/>
