@@ -233,3 +233,21 @@ a. Create indexes on fields used in filters ($match), sorts ($sort), and groupin
 b. Avoid over-indexing, as it increases storage costs and slows down writes.<br/>
 **Explain Plans:**<br/>
 Use MongoDB’s explain() method to analyze query performance and verify index usage.<br/>
+
+#### Examples:
+1. Create a single-field index on `user_id`.
+```
+await db["workouts"].create_index("user_id")
+```
+2. Create a compound index on `user_id` and `date`.
+```
+# Filter by user_id and Sort by date 
+await db["workouts"].create_index([("user_id", 1), ("date", -1)])
+```
+3. Testing Index Performance
+Use the explain() method to verify that queries use the indexes:
+```
+result = await db["workouts"].find({"user_id": "user123"}).sort("date", -1).explain()
+print(result)
+# Look for "stage": "IXSCAN" in the output to confirm index usage.
+```
