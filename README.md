@@ -221,21 +221,21 @@ c. **Denormalization**: Duplicate data to reduce the need for joins (useful for 
 d. **Normalization**: Avoid duplication by splitting data into multiple collections (useful for write-heavy workloads).<br/>
 
 #### Best Practices for Data Modeling
-a. **Understand Your Queries**:
-Design your schema based on the queries your application will perform most frequently.
-Optimize for reads if your application is read-heavy, and for writes if it’s write-heavy.
-b. **Limit Document Size**:
-Keep documents under 16 MB to avoid hitting MongoDB’s size limit.
-Use references for large or frequently updated data.
-c. **Avoid Deep Nesting**:
-While MongoDB supports nested objects and arrays, deeply nested structures can make queries more complex.
-Flatten your data where possible.
-d. **Use Arrays for One-to-Many Relationships**:
-For relationships where one entity has multiple related items (e.g., a workout with multiple nutrition entries), use arrays.
-Be cautious about array size to avoid exceeding document limits.
-e. **Index Strategically**:
-Create indexes on fields used in filters, sorts, and groupings.
-Avoid over-indexing, as it increases storage costs and slows down writes.
+a. **Understand Your Queries**:<br/>
+Design your schema based on the queries your application will perform most frequently.<br/>
+Optimize for reads if your application is read-heavy, and for writes if it’s write-heavy.<br/>
+b. **Limit Document Size**:<br/>
+Keep documents under 16 MB to avoid hitting MongoDB’s size limit.<br/>
+Use references for large or frequently updated data.<br/>
+c. **Avoid Deep Nesting**:<br/>
+While MongoDB supports nested objects and arrays, deeply nested structures can make queries more complex.<br/>
+Flatten your data where possible.<br/>
+d. **Use Arrays for One-to-Many Relationships**:<br/>
+For relationships where one entity has multiple related items (e.g., a workout with multiple nutrition entries), use arrays.<br/>
+Be cautious about array size to avoid exceeding document limits.<br/>
+e. **Index Strategically**:<br/>
+Create indexes on fields used in filters, sorts, and groupings.<br/>
+Avoid over-indexing, as it increases storage costs and slows down writes.<br/>
 
 
 ## 2. Indexing Optimization
